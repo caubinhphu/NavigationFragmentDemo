@@ -15,8 +15,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import vn.edu.ntu.nguyenanhhai.controllers.CartControllerDB;
+import vn.edu.ntu.nguyenanhhai.controllers.ICartController;
+import vn.edu.ntu.nguyenanhhai.controllers.IShopController;
+import vn.edu.ntu.nguyenanhhai.controllers.ShopController;
+import vn.edu.ntu.nguyenanhhai.controllers.ShopControllerDB;
+
 public class MainActivity extends AppCompatActivity {
   NavController navController;
+  IShopController shopController;
+  ICartController cartController;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -24,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setDisplayShowHomeEnabled(true);
+//    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//    getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
@@ -33,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         navController.navigateUp();
       }
     });
+
+    shopController = new ShopControllerDB(this);
+    cartController = new CartControllerDB(this);
   }
 
   @Override

@@ -14,17 +14,22 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import vn.edu.ntu.nguyenanhhai.controllers.IShopController;
 import vn.edu.ntu.nguyenanhhai.controllers.ShopController;
 import vn.edu.ntu.nguyenanhhai.models.Product;
 
 public class AddingProductFragment extends Fragment {
   EditText edtName, edtPrice, edtDesc;
   Button btnAdd;
-  NavController navController;
+  IShopController shopController;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     getActivity().setTitle("THÊM MẶT HÀNG");
+
+    shopController = ((MainActivity)getActivity()).shopController;
 
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_add_product, container, false);
@@ -47,7 +52,8 @@ public class AddingProductFragment extends Fragment {
         String desc = edtDesc.getText().toString();
 
         if (name.length() > 0 && price.length() > 0 && desc.length() > 0) {
-          ShopController.getIntance().addProduct(new Product(name, new Integer(price), desc));
+//          ShopController.getIntance().addProduct(new Product(name, new Integer(price), desc));
+          shopController.addProduct(new Product(name, new Integer(price), desc));
           Toast.makeText(getActivity(), "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
           edtName.setText("");
           edtPrice.setText("");
@@ -59,10 +65,10 @@ public class AddingProductFragment extends Fragment {
     });
   }
 
-  @Override
-  public void onAttach(@NonNull Context context) {
-    super.onAttach(context);
-    navController = NavHostFragment.findNavController(this);
-    ((MainActivity) getActivity()).navController = navController;
-  }
+//  @Override
+//  public void onAttach(@NonNull Context context) {
+//    super.onAttach(context);
+//    navController = NavHostFragment.findNavController(this);
+//    ((MainActivity) getActivity()).navController = navController;
+//  }
 }

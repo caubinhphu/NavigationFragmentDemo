@@ -1,8 +1,23 @@
 package vn.edu.ntu.nguyenanhhai.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "sanpham")
 public class Product {
-  private String name;
-  private int price;
+  @PrimaryKey(autoGenerate = true)
+  @NonNull
+  @ColumnInfo(name = "ma_sanpham")
+  int id;
+  @NonNull
+  @ColumnInfo(name = "ten_sanpham")
+  String name;
+  @NonNull
+  @ColumnInfo(name = "gia_sanpham")
+  int price;
+  @ColumnInfo(name = "mota_sanpham")
   private String desc;
 
   public Product(String name, int price, String desc) {
@@ -21,5 +36,25 @@ public class Product {
 
   public String getDesc() {
     return desc;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setName(@NonNull String name) {
+    this.name = name;
+  }
+
+  public void setPrice(int price) {
+    this.price = price;
+  }
+
+  public void setDesc(String desc) {
+    this.desc = desc;
   }
 }

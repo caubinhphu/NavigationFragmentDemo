@@ -25,6 +25,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import vn.edu.ntu.nguyenanhhai.controllers.CartController;
+import vn.edu.ntu.nguyenanhhai.controllers.ICartController;
+import vn.edu.ntu.nguyenanhhai.controllers.IShopController;
 import vn.edu.ntu.nguyenanhhai.controllers.ShopController;
 import vn.edu.ntu.nguyenanhhai.models.Product;
 
@@ -32,13 +34,19 @@ public class ProductListFragment extends Fragment {
   FloatingActionButton fab;
   RecyclerView rvProductList;
   ProductAdapter productAdapter;
-  CartController cartController;
-  NavController navController;
+  ICartController cartController;
+  IShopController shopController;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setHasOptionsMenu(true);
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
   }
 
   @Override
@@ -61,6 +69,9 @@ public class ProductListFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     getActivity().setTitle("SẢN PHẨM");
 
+    shopController = ((MainActivity)getActivity()).shopController;
+    cartController = ((MainActivity)getActivity()).cartController;
+
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_product_list, container, false);
     fab = view.findViewById(R.id.floatingActionButton);
@@ -68,10 +79,10 @@ public class ProductListFragment extends Fragment {
     rvProductList = view.findViewById(R.id.rvProductList);
     // set recycle product list
     rvProductList.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-    productAdapter = new ProductAdapter(ShopController.getIntance().getAllProduct());
+    productAdapter = new ProductAdapter(shopController.getAllProduct());
     rvProductList.setAdapter(productAdapter);
 
-    cartController = (CartController) getActivity().getApplication();
+    // cartController = (CartController) getActivity().getApplication();
 
     return view;
   }
@@ -92,8 +103,7 @@ public class ProductListFragment extends Fragment {
   @Override
   public void onAttach(@NonNull Context context) {
     super.onAttach(context);
-    navController = NavHostFragment.findNavController(this);
-    ((MainActivity) getActivity()).navController = navController;
+    ((MainActivity) getActivity()).navController = NavHostFragment.findNavController(this);
   }
 
   private class ProductHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

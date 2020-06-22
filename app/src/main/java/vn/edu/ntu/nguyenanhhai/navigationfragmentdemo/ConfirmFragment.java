@@ -23,7 +23,6 @@ import android.widget.Toast;
 public class ConfirmFragment extends Fragment {
   TextView txtInfo;
   Button btnConfirm;
-  NavController navController;
 
   public ConfirmFragment() {
     // Required empty public constructor
@@ -32,6 +31,7 @@ public class ConfirmFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getActivity().setTitle("ĐẶT HÀNG");
 
     View view = inflater.inflate(R.layout.fragment_confirm, container, false);
@@ -57,11 +57,11 @@ public class ConfirmFragment extends Fragment {
     });
   }
 
-
-  @Override
-  public void onAttach(@NonNull Context context) {
-    super.onAttach(context);
-    navController = NavHostFragment.findNavController(this);
-    ((MainActivity) getActivity()).navController = navController;
-  }
+//
+//  @Override
+//  public void onAttach(@NonNull Context context) {
+//    super.onAttach(context);
+//    navController = NavHostFragment.findNavController(this);
+//    ((MainActivity) getActivity()).navController = navController;
+//  }
 }

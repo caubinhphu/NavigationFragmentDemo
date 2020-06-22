@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import vn.edu.ntu.nguyenanhhai.controllers.CartController;
+import vn.edu.ntu.nguyenanhhai.controllers.ICartController;
 import vn.edu.ntu.nguyenanhhai.models.Product;
 
 
@@ -28,7 +29,7 @@ import vn.edu.ntu.nguyenanhhai.models.Product;
 public class CartFragment extends Fragment {
   Button btnBuyCart, btnDeleteCart;
   TextView txtCartInfo;
-  CartController cartController;
+  ICartController cartController;
   NavController navController;
 
   public CartFragment() {
@@ -38,6 +39,8 @@ public class CartFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     getActivity().setTitle("GIỎ HÀNG");
 
     // Inflate the layout for this fragment
@@ -46,7 +49,7 @@ public class CartFragment extends Fragment {
     btnDeleteCart = view.findViewById(R.id.btnDeleteCart);
     txtCartInfo = view.findViewById(R.id.txtCartInfo);
 
-    cartController = (CartController) getActivity().getApplication();
+    cartController = ((MainActivity)getActivity()).cartController;
 
     List<Product> products = cartController.getProducts();
     if (products.size() > 0) {
@@ -110,10 +113,10 @@ public class CartFragment extends Fragment {
   }
 
 
-  @Override
-  public void onAttach(@NonNull Context context) {
-    super.onAttach(context);
-    navController = NavHostFragment.findNavController(this);
-    ((MainActivity) getActivity()).navController = navController;
-  }
+//  @Override
+//  public void onAttach(@NonNull Context context) {
+//    super.onAttach(context);
+//    navController = NavHostFragment.findNavController(this);
+//    ((MainActivity) getActivity()).navController = navController;
+//  }
 }
